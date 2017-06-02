@@ -53,25 +53,48 @@ import io.github.trulyfree.easyaspi.ssh.ssh.ChannelWrapper;
 import io.github.trulyfree.easyaspi.ssh.ssh.Profile;
 import io.github.trulyfree.easyaspi.ssh.ssh.SSHHandler;
 
+/**
+ *
+ * @author vtcakavsmoace
+ * @since v0.0.1-alpha
+ */
 @SuppressLint("SetTextI18n")
 public class Main implements EAPDisplayableModule, PreferenceManager.OnActivityResultListener {
 
+    /**
+     *
+     */
     private static final String UPDATE_COMMAND = "(sudo apt update; sudo apt -y dist-upgrade) 2>&1";
 
+    /**
+     *
+     */
     private EAPDisplay activity;
+
+    /**
+     *
+     */
     private SSHHandler sshHandler;
+
+    /**
+     *
+     */
     private ExecutorService executorService;
 
+    /**
+     *
+     */
     private Button update;
-    private TextView logView;
-    private ScrollView scrollView;
 
-    public static ModuleConfig getConfig() {
-        ModuleConfig config = new ModuleConfig();
-        config.setTargetModule(Main.class.getName());
-        config.setName("EasyAsPi Updater");
-        return config;
-    }
+    /**
+     *
+     */
+    private TextView logView;
+
+    /**
+     *
+     */
+    private ScrollView scrollView;
 
     @Override
     public boolean setup() {
@@ -276,6 +299,7 @@ public class Main implements EAPDisplayableModule, PreferenceManager.OnActivityR
             };
             try {
                 sshHandler.executeCommand(result, UPDATE_COMMAND, profile);
+                return true;
             } catch (Throwable throwable) {
                 result.onFailure(throwable);
             }
